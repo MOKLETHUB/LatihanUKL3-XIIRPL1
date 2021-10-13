@@ -3,10 +3,17 @@
 ### Link Dokumentasi
 [2136-P3-SPK-Rekayasa Perangkat Lunak](https://github.com/MOKLETHUB/LatihanUKL3-XIIRPL1/blob/master/docs/2136-P3-SPK-Rekayasa%20Perangkat%20Lunak.doc)
 
-## Dokumentasi project sebelumnya (referensi)
-[Dokumentasi Frontend](https://docs.google.com/document/d/1QVtxzi5cKHx5RpVAiqaIwRi3F8m7thHibWDD6E9KZ3s/edit?usp=sharing)
+> Kerjakan di dokumen ini
 
-[Dokumentasi Backend](https://docs.google.com/document/d/1Z2w5HHgDMZQcTeq4MVp2IQzcOUR59jhHh-VQOBlZ73U/edit?usp=sharing)
+[Dokumentasi-frontend](https://docs.google.com/document/d/1QgP_WJfA9h_Ur1lxp8tOm7yiJ3jIv434o3eQ1Ay82wE/edit?usp=sharing)
+
+[Dokumentasi-backend](https://docs.google.com/document/d/1Javx_tXSW2PqLoPLWcu4J1vE_nHnkpNDpiraJWlss6s/edit?usp=sharing)
+
+> Dokumentasi project sebelumnya (referensi)
+
+[Dokumentasi frontend referensi](https://docs.google.com/document/d/1QVtxzi5cKHx5RpVAiqaIwRi3F8m7thHibWDD6E9KZ3s/edit?usp=sharing)
+
+[Dokumentasi backend referensi](https://docs.google.com/document/d/1Z2w5HHgDMZQcTeq4MVp2IQzcOUR59jhHh-VQOBlZ73U/edit?usp=sharing)
 
 
 ### Instalasi
