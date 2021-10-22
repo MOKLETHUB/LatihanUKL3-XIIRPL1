@@ -2,7 +2,7 @@ const express = require("express")
 const app = express()
 
 // call model
-const detail_transaksi = require("../models/index").tb_detail_transaksi
+const detail_transaksi = require("../models/index").detail_transaksi
 
 // allow request body
 app.use(express.urlencoded({extended:true}))
@@ -64,8 +64,7 @@ app.post("/", async(req,res) => {
     let data = {
         id_transaksi: req.body.id_transaksi,
         id_paket: req.body.id_paket,
-        qty: req.body.qty,
-        keterangan: req.body.keterangan
+        qty: req.body.qty
     }
 
     detail_transaksi.create(data)
@@ -88,8 +87,7 @@ app.put("/", async(req,res) => {
     let data = {
         id_transaksi: req.body.id_transaksi,
         id_paket: req.body.id_paket,
-        qty: req.body.qty,
-        keterangan: req.body.keterangan
+        qty: req.body.qty
     }
 
     let param = {

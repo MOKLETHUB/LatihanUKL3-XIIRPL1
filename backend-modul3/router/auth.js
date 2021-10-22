@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const md5 = require('md5')
 
 // call model
-const user = require("../models/index").tb_user
+const user = require("../models/index").user
 
 // allow request body
 app.use(express.urlencoded({extended:true}))

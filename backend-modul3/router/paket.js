@@ -2,7 +2,7 @@ const express = require("express")
 const app = express()
 
 // call model
-const paket = require("../models/index").tb_paket
+const paket = require("../models/index").paket
 
 // allow request body
 app.use(express.urlencoded({extended:true}))
@@ -62,9 +62,7 @@ app.get("/", async(req,res) => {
 app.post("/", async(req,res) => {
     // put data
     let data = {
-        id_outlet: req.body.id_outlet,
         jenis: req.body.jenis,
-        nama_paket: req.body.nama_paket,
         harga: req.body.harga 
     }
 
@@ -86,9 +84,7 @@ app.post("/", async(req,res) => {
 app.put("/", async(req,res) => {
     // put data
     let data = {
-        id_outlet: req.body.id_outlet,
         jenis: req.body.jenis,
-        nama_paket: req.body.nama_paket,
         harga: req.body.harga 
     }
 

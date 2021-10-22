@@ -1,29 +1,18 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('tb_transaksi', {
+    await queryInterface.createTable('transaksi', {
       id_transaksi: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_outlet: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model : "tb_outlet",
-          key: "id_outlet"
-        }
-      },
-      kode_invoice: {
-        type: Sequelize.STRING
-      },
       id_member: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model : "tb_member",
+          model : "member",
           key: "id_member"
         }
       },
@@ -36,15 +25,6 @@ module.exports = {
       tgl_bayar: {
         type: Sequelize.DATE
       },
-      biaya_tambahan: {
-        type: Sequelize.INTEGER
-      },
-      diskon: {
-        type: Sequelize.INTEGER
-      },
-      pajak: {
-        type: Sequelize.INTEGER
-      },
       status: {
         type: Sequelize.STRING
       },
@@ -55,7 +35,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model : "tb_user",
+          model : "user",
           key: "id_user"
         }
       },
@@ -70,6 +50,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('tb_transaksi');
+    await queryInterface.dropTable('transaksi');
   }
 };

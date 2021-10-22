@@ -3,7 +3,7 @@ const app = express()
 var md5 = require('md5');
 
 // call model
-const user = require("../models/index").tb_user
+const user = require("../models/index").user
 
 // allow request body
 app.use(express.urlencoded({extended:true}))
@@ -36,7 +36,6 @@ app.post("/", async(req,res) => {
         nama: req.body.nama,
         username: req.body.username,
         password: md5(req.body.password),
-        id_outlet: req.body.id_outlet,
         role: req.body.role
     }
 
@@ -61,7 +60,6 @@ app.put("/", async(req,res) => {
         nama: req.body.nama,
         username: req.body.username,
         password: md5(req.body.password),
-        id_outlet: req.body.id_outlet,
         role: req.body.role
     }
 

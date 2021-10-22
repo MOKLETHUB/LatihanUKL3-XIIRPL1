@@ -2,7 +2,7 @@ const express = require("express")
 const app = express()
 
 // call model
-const member = require("../models/index").tb_member
+const member = require("../models/index").member
 
 // allow request body
 app.use(express.urlencoded({extended:true}))

@@ -2,7 +2,7 @@ const express = require("express")
 const app = express()
 
 // call model
-const transaksi = require("../models/index").tb_transaksi
+const transaksi = require("../models/index").transaksi
 
 // allow request body
 app.use(express.urlencoded({extended:true}))
@@ -62,15 +62,10 @@ app.get("/", async(req,res) => {
 app.post("/", async(req,res) => {
     // put data
     let data = {
-        id_outlet: req.body.id_outlet,
-        kode_invoice: req.body.kode_invoice,
         id_member: req.body.id_member,
         tgl: req.body.tgl,
         batas_waktu: req.body.batas_waktu,
         tgl_bayar: req.body.tgl_bayar,
-        biaya_tambahan: req.body.biaya_tambahan,
-        diskon: req.body.diskon,
-        pajak: req.body.pajak,
         status: req.body.status,
         dibayar: req.body.dibayar,
         id_user: req.body.id_user
@@ -94,15 +89,10 @@ app.post("/", async(req,res) => {
 app.put("/", async(req,res) => {
     // put data
     let data = {
-        id_outlet: req.body.id_outlet,
-        kode_invoice: req.body.kode_invoice,
         id_member: req.body.id_member,
         tgl: req.body.tgl,
         batas_waktu: req.body.batas_waktu,
         tgl_bayar: req.body.tgl_bayar,
-        biaya_tambahan: req.body.biaya_tambahan,
-        diskon: req.body.diskon,
-        pajak: req.body.pajak,
         status: req.body.status,
         dibayar: req.body.dibayar,
         id_user: req.body.id_user

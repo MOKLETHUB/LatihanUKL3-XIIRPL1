@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('tb_member', {
+    await queryInterface.createTable('member', {
       id_member: {
         allowNull: false,
         autoIncrement: true,
@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       alamat: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       jenis_kelamin: {
         type: Sequelize.STRING
@@ -31,6 +31,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('tb_member');
+    await queryInterface.dropTable('member');
   }
 };
