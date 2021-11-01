@@ -5,6 +5,9 @@ class Index extends React.Component{
         return(
             <div>
                 <h1>Page Customer</h1>
+                <div class="alert alert-primary" role="alert">
+                    A simple primary alert—check it out!
+                </div>
             </div>
         )
     }
