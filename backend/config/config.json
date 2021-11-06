@@ -1,8 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "latukl3",
+    "password": "root",
+    "port": 8889,
+    "database": "ukl_laundry",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

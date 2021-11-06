@@ -2,6 +2,18 @@ import React from 'react'
 import { Link } from "react-router-dom";
 
 class Index extends React.Component{
+    constructor(){
+        super()
+        // get token from local.storage
+        if(!localStorage.getItem("token")) {
+            window.location = "/login"
+        }
+    }
+    Logout = () => {
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+        window.location = "/login"
+    }
     render(){
         return(
             <div>
@@ -15,6 +27,7 @@ class Index extends React.Component{
                     <li><Link to="/transaksi">transaksi</Link></li>
                     <li><Link to="/user">user</Link></li>
                 </ul>
+                <button className="btn btn-lg btn-success" onClick={() => this.Logout()}>Logout</button>
             </div>
         )
     }
