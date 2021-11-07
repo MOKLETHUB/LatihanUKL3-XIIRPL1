@@ -7,8 +7,8 @@ export class Login extends Component {
   constructor(){
     super()
     this.state = {
-      username: "admin",
-      password: "admin",
+      username: "",
+      password: "",
       role: "admin",
       token: "",
       logged: true
@@ -53,7 +53,7 @@ export class Login extends Component {
         })
       }
     })
-    .catch(error => console.log(error))
+    .catch(error => alert(error))
   }
 
   render() {
@@ -63,18 +63,17 @@ export class Login extends Component {
         <div className="row">
           <div className="col-6">
             <form onSubmit= { ev => this.Login(ev) }>
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" aria-label="Username" placeholder="Username" value={this.state.username}/>
-                <input type="text" class="form-control" aria-label="Password" placeholder="Password" value={this.state.password}/>
-                {/* <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Role</button> */}
+              <div className="input-group mb-3">
+                <input type="text" className="form-control" aria-label="Username" placeholder="Username" 
+                  value={this.state.username} onChange={ ev => this.setState({ username: ev.target.value }) } required/>
+                <input type="text" className="form-control" aria-label="Password" placeholder="Password" 
+                  value={this.state.password} onChange={ ev => this.setState({ password: ev.target.value }) } required/>
                 <select required className="btn btn-warning dropdown-toggle" aria-label="role"
-                  value={this.state.role} onChange={ ev => this.setState({ role: ev.target.role }) }>
-                  <optgroup label="Select Role:">
-                      <option value="admin" >Admin</option>
-                      <option value="petugas" >Petugas</option>
-                  </optgroup>
+                  value={this.state.role} onChange={ ev => this.setState({ role: ev.target.value }) }>
+                    <option value="admin">Admin</option>
+                    <option value="petugas" >Petugas</option>
                 </select>
-                <button type="submit" class="btn text-white btn-success">Login</button>
+                <button type="submit" className="btn text-white btn-success">Login</button>
               </div>
             </form>
           </div>
