@@ -12,7 +12,8 @@ class Index extends React.Component{
             alamat: "",
             tlp: "",
             token: "",
-            data_outlet: []
+            data_outlet: [],
+            message: ""
         }
         // get token from local.storage
         if(!localStorage.getItem("token")) {
@@ -34,6 +35,7 @@ class Index extends React.Component{
             let data = JSON.parse(JSON.stringify(response.data.data_outlet))
             this.setState({ data_outlet: data })
         })
+        .catch(error => this.setState({ messsage: error}))
     }
 
     dropData = selectedItem => {
@@ -49,7 +51,7 @@ class Index extends React.Component{
                 window.alert(response.data.message)
                 this.getData()
             })
-            .catch(error => console.log(error))
+            .catch(error => this.setState({ messsage: error}))
         }
     }
 
@@ -91,7 +93,7 @@ class Index extends React.Component{
             .then(response => {
                 this.getData()
             })
-            .catch(error => console.log(error))
+            .catch(error => this.setState({ messsage: error}))
         } else if(this.state.action === "update"){
             axios.put(url, data, { headers:{ 
                 Authorization: "Bearer " + this.state.token
@@ -99,7 +101,7 @@ class Index extends React.Component{
             .then(response => {
                 this.getData()
             })
-            .catch(error => console.log(error))
+            .catch(error => this.setState({ messsage: error}))
         }
     }
 

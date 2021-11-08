@@ -6,6 +6,7 @@ const member = require("../models/index").tb_member
 
 // allow request body
 app.use(express.urlencoded({extended:true}))
+app.use(express.json())
 
 // auth_verify
 const verify = require("./auth_verify")
@@ -46,7 +47,7 @@ app.get("/", async(req,res) => {
     .then(result => {
         res.json({
             message: "Data founded",
-            member: result, 
+            data_member: result, 
             found: true
         })
     })

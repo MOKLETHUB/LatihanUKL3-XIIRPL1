@@ -17,7 +17,7 @@ app.get("/", async(req,res) => {
     user.findAll({include:[{ all: true, nested: true }]})
     .then(result => {
         res.json({
-            user: result,
+            data_user: result,
             found: true
         })
     })
