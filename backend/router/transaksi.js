@@ -6,6 +6,7 @@ const transaksi = require("../models/index").tb_transaksi
 
 // allow request body
 app.use(express.urlencoded({extended:true}))
+app.use(express.json())
 
 // auth_verify
 const verify = require("./auth_verify")
@@ -46,7 +47,7 @@ app.get("/", async(req,res) => {
     .then(result => {
         res.json({
             message: "Data founded",
-            transaksi: result, 
+            data_transaksi: result, 
             found: true
         })
     })
@@ -116,7 +117,7 @@ app.put("/", async(req,res) => {
     .then(result => {
         res.json({
             message: "Data updated",
-            data: result
+            data_transaksi: result
         })
     })
     .catch(error => {

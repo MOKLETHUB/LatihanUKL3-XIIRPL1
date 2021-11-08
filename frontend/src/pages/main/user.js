@@ -15,6 +15,7 @@ class Index extends React.Component{
             role: "",
             token: "",
             data_user: [],
+            data_outlet: [],
             message: ""
         }
         // get token from local.storage
@@ -36,6 +37,21 @@ class Index extends React.Component{
         .then(response => {
             let data = JSON.parse(JSON.stringify(response.data.data_user))
             this.setState({ data_user: data })
+        })
+        .catch(error => this.setState({ messsage: error}))
+    }
+
+    getDataOutlet = () => {
+        let url = base_url + "/outlet"
+
+        axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + this.state.token
+            }
+        })
+        .then(response => {
+            let data = JSON.parse(JSON.stringify(response.data.data_outlet))
+            this.setState({ data_outlet: data })
         })
         .catch(error => this.setState({ messsage: error}))
     }
@@ -116,6 +132,7 @@ class Index extends React.Component{
 
     componentDidMount(){
         this.getData()
+        this.getDataOutlet()
     }
     render(){
         return(
@@ -147,6 +164,27 @@ class Index extends React.Component{
                                         <div className="mb-3 col-6">
                                             <label className="form-label">Password</label>
                                             <input required type="text" className="form-control" value={this.state.password} onChange={ev => this.setState({password: ev.target.value})}/>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Outlet</label>
+                                            <select className="form-select" aria-label="Default select example"
+                                                value={this.state.id_outlet} onChange={ev => this.setState({id_outlet: ev.target.value})}>
+                                                <option selected>Open this select menu</option>
+                                                {
+                                                    this.state.data_outlet.map(item => (
+                                                        <option value={item.id_outlet}>{item.nama}</option>
+                                                    ))
+                                                }
+                                            </select>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Role</label>
+                                            <select className="form-select" aria-label="Default select example"
+                                                value={this.state.role} onChange={ev => this.setState({role: ev.target.value})}>
+                                                <option selected>Open this select menu</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="petugas">Petugas</option>
+                                            </select>
                                         </div>
                                 </div>
                                 <div className="modal-footer">
@@ -195,7 +233,7 @@ class Index extends React.Component{
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm text-gray-900">
-                                            {item.id_outlet}
+                                            {item.tb_outlet.nama}
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">

@@ -7,6 +7,7 @@ const user = require("../models/index").tb_user
 
 // allow request body
 app.use(express.urlencoded({extended:true}))
+app.use(express.json())
 
 // auth_verify
 // const verify = require("./auth_verify")
