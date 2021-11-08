@@ -210,7 +210,7 @@ class Index extends React.Component{
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="modalDataLabel">Add Data</h5>
+                                <h5 className="modal-title" id="modalDataLabel">{this.state.action} Data</h5>
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <form method="POST" onSubmit={ev => this.submitData(ev)}>
@@ -293,6 +293,20 @@ class Index extends React.Component{
                                     <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Submit</button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+                <div className="modal fade" id="modalDetailTransaksi" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
+                    {/* <!-- Vertically centered modal --> */}
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="modalDataLabel">Details Transaksi</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div>
+                                Detail transaksi
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -387,7 +401,8 @@ class Index extends React.Component{
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm text-gray-900">
                                             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.updateData(item)}>Edit</button>|
-                                            <button type="button" className="btn btn-danger" onClick={() => this.dropData(item)}>Delete</button>
+                                            <button type="button" className="btn btn-danger" onClick={() => this.dropData(item)}>Delete</button>|
+                                            <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalDetailTransaksi">Details</button>
                                         </div>
                                     </td>
                                 </tr>
