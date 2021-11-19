@@ -1,7 +1,22 @@
 import React, { Component } from "react";
 import axios from "axios";
 import base_url from "../../config/base_urls";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+import {
+  Container,
+  Row,
+  Col,
+  FormGroup,
+  FormText,
+  Input,
+} from "reactstrap";
+import Widget from "../../components/Widget/Widget";
+import loginImage from "../../assets/loginBanner.jpeg";
+import SofiaLogo from "../../components/Icons/SofiaLogo.js";
+
+import Alert from "../../components/Notification/Notification.js";
 export class Login extends Component {
 
   constructor(){
@@ -11,13 +26,9 @@ export class Login extends Component {
       password: "",
       role: "admin",
       token: "",
-      logged: true
-    }
-
-    // get token from local.storage
-    if(localStorage.getItem("token")) {
-      this.state.token = localStorage.getItem("token")
-      window.location = "/"
+      logged: true,
+      isError: false,
+      message: ""
     }
   }
 
@@ -35,7 +46,8 @@ export class Login extends Component {
     axios.post(url, data)
     .then(response => {
       this.setState({
-        logged: response.data.logged
+        logged: response.data.logged,
+        isError: false
       })
       if(this.state.logged){
         let userData = response.data.data
@@ -53,32 +65,101 @@ export class Login extends Component {
         })
       }
     })
-    .catch(error => alert(error))
+    .catch(error => {
+      this.setState({
+        isError: true,
+        message: error
+      })
+    })
+  }
+
+  componentDidMount(){
+    // get token from local.storage
+    if(localStorage.getItem("token")) {
+      this.state.token = localStorage.getItem("token")
+      window.location = "/"
+    }
+    
   }
 
   render() {
     return (
-      <div>
-        <h1>Login Page</h1>
-        <div className="row">
-          <div className="col-6">
-            <form onSubmit= { ev => this.Login(ev) }>
-              <div className="input-group mb-3">
-                <input type="text" className="form-control" aria-label="Username" placeholder="Username" 
-                  value={this.state.username} onChange={ ev => this.setState({ username: ev.target.value }) } required/>
-                <input type="text" className="form-control" aria-label="Password" placeholder="Password" 
-                  value={this.state.password} onChange={ ev => this.setState({ password: ev.target.value }) } required/>
-                <select required className="btn btn-warning dropdown-toggle" aria-label="role"
-                  value={this.state.role} onChange={ ev => this.setState({ role: ev.target.value }) }>
-                    <option value="admin">Admin</option>
-                    <option value="petugas" >Petugas</option>
-                </select>
-                <button type="submit" className="btn text-white btn-success">Login</button>
-              </div>
-            </form>
-          </div>
+        <div className="auth-page">
+          <Container className="col-12">
+            <Row className="d-flex align-items-center">
+              <Col xs={12} lg={6} className="left-column">
+                <Widget className="widget-auth widget-p-lg">
+                  <div className="d-flex align-items-center justify-content-between py-3">
+                    <p className="auth-header mb-0">Login</p>
+                    <div className="logo-block">
+                      <SofiaLogo />
+                      <p className="mb-0">LaundryKu</p>
+                    </div>
+                  </div>
+                  <div className="auth-info my-2">
+                    <p>Gunakan akun yang terdaftar dan pilih role <b>"Admin / Petugas"</b> untuk masuk ke dashboard!</p>
+                  </div>
+                  { this.state.message ? (
+                    <Alert type="error" withIcon text={this.state.message}/>
+                  ):null}
+                  <form onSubmit={ev => this.Login(ev)}>
+                    <FormGroup className="my-3">
+                      <FormText>Username</FormText>
+                      <Input
+                        id="username"
+                        className="input-transparent pl-3"
+                        value={this.state.username} 
+                        onChange={ ev => this.setState({ username: ev.target.value }) } 
+                        type="username"
+                        required
+                        name="username"
+                        placeholder="Username"
+                      />
+                    </FormGroup>
+                    <FormGroup  className="my-3">
+                      <div className="d-flex justify-content-between">
+                        <FormText>Password</FormText>
+                        {/* <Link to="/error">Forgot password?</Link> */}
+                      </div>
+                      <Input
+                        id="password"
+                        className="input-transparent pl-3"
+                        value={this.state.password} 
+                        onChange={ ev => this.setState({ password: ev.target.value }) }
+                        type="password"
+                        required
+                        name="password"
+                        placeholder="Password"
+                      />
+                    </FormGroup>
+                    <FormGroup className="my-3">
+                    <div className="d-flex justify-content-between">
+                      <FormText>Role</FormText>
+                      {/* <Link to="/error">Forgot password?</Link> */}
+                    </div>
+                    <select 
+                      required 
+                      className="input-transparent pl-3 form-control"
+                      value={this.state.role} 
+                      onChange={ ev => this.setState({ role: ev.target.value }) }>
+                        <option value="admin">Admin</option>
+                        <option value="petugas" >Petugas</option>
+                    </select>
+                    </FormGroup>
+                    <div className="bg-widget d-flex justify-content-center">
+                      <button type="submit" className="btn text-white btn-primary rounded-pill my-3">Login</button>
+                    </div>  
+                    </form>
+                </Widget>
+              </Col>
+              <Col xs={0} lg={6} className="right-column overflow-hidden">
+                <div>
+                  <img src={loginImage} alt="Error page" />
+                </div>
+              </Col>
+            </Row>
+          </Container>
         </div>
-      </div>
     );
   }
 }

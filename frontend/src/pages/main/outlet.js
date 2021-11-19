@@ -2,6 +2,13 @@ import React from 'react'
 import axios from 'axios'
 import base_url from '../../config/base_urls'
 
+import {
+  Table
+} from "reactstrap";
+import Widget from "../../components/Widget/Widget.js";
+import s from "../../assets/css/Tables.module.scss";
+import Header from "../../components/Header/Header";
+
 class Index extends React.Component{
     constructor(){
         super()
@@ -110,13 +117,10 @@ class Index extends React.Component{
     }
     render(){
         return(
-            <div>
-                <div>
-                    <h1>Page Outlet</h1>
-                    <div className="d-flex justify-content-end">
-                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.addData()}>Add Data</button>
-                    </div>
-
+            <>
+                <Header/>
+                <div className="container pt-4">
+                    <h3 className="font-weight-bold text-muted text-uppercase mb-3">Crud Outlet</h3>
                     {/* <!-- Modal --> */}
                     <div className="modal fade" id="modalData" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
                         {/* <!-- Vertically centered modal --> */}
@@ -149,53 +153,51 @@ class Index extends React.Component{
                             </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <table className="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nama Outlet</th>
-                                <th scope="col">Alamat</th>
-                                <th scope="col">Telp</th>
-                                <th scope="col">Option</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            { this.state.data_outlet.map( item => (
+
+                    <Widget className="p-4">
+                        <div className={s.tableTitle}>
+                            <div className="headline-2">Page Outlet</div>
+                            <div className="d-flex">
+                                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.addData()}>Add Data</button>
+                            </div>
+                        </div>
+                        <div className="widget-table-overflow">
+                            <Table className={`table-striped table-borderless table-hover ${s.statesTable}`} responsive>
+                                <thead>
                                 <tr>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.id_outlet}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.nama}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.alamat}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.tlp}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.updateData(item)}>Edit</button>|
-                                            <button type="button" className="btn btn-danger" onClick={() => this.dropData(item)}>Delete</button>
+                                <th className="w-25">ID</th>
+                                <th className="w-25">Nama Outlet</th>
+                                <th className="w-25">Alamat</th>
+                                <th className="w-25">Telp</th>
+                                <th className="w-25">Option</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                { this.state.data_outlet.map( item => (
+                                <tr>
+                                    <td>{item.id_outlet}</td>
+                                    <td>{item.nama}</td>
+                                    <td>{item.alamat}</td>
+                                    <td>{item.tlp}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                Option
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item text-primary" href="#" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.updateData(item)}>Edit</a>
+                                                <a class="dropdown-item text-danger" href="#" onClick={() => this.dropData(item)}>Delete</a>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
                             )) }
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </Table>
+                        </div>
+                    </Widget>
                 </div>
-            </div>
+            </>
         )
     }
 }

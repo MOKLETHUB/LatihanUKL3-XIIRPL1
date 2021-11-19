@@ -1,4 +1,5 @@
 import React from 'react'
+import Header from "../../components/Header/Header";
 
 class Index extends React.Component{
     constructor(){
@@ -10,9 +11,12 @@ class Index extends React.Component{
     }
     render(){
         return(
-            <div>
-                <h1>Page Laporan</h1>
-            </div>
+            <>
+                <Header/>
+                <div className="container pt-4">
+                    <h3 className="font-weight-bold text-muted text-uppercase mb-3">Page Laporan</h3>
+                </div>
+            </>
         )
     }
 }

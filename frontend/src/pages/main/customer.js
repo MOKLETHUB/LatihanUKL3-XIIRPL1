@@ -2,6 +2,15 @@ import React from 'react'
 import axios from 'axios'
 import base_url from '../../config/base_urls'
 
+import {
+    Table
+  } from "reactstrap";
+import Widget from "../../components/Widget/Widget.js";
+import s from "../../assets/css/Tables.module.scss";
+import Header from "../../components/Header/Header";
+
+import ellieSmithImg from "../../assets/tables/ellieSmithImg.png";
+
 class Index extends React.Component{
     constructor(){
         super()
@@ -118,98 +127,93 @@ class Index extends React.Component{
     }
     render(){
         return(
-            <div>
-                <h1>Page Customer</h1>
-                <div className="d-flex justify-content-end">
-                    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.addData()}>Add Data</button>
-                </div>
-
-                {/* <!-- Modal --> */}
-                <div className="modal fade" id="modalData" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
-                    {/* <!-- Vertically centered modal --> */}
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="modalDataLabel">Add Data</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <>
+                <Header/>
+                <div className="container pt-4">
+                    <h3 className="font-weight-bold text-muted text-uppercase mb-3">Crud Member</h3>
+                    {/* <!-- Modal --> */}
+                    <div className="modal fade" id="modalData" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
+                        {/* <!-- Vertically centered modal --> */}
+                        <div className="modal-dialog modal-dialog-centered">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="modalDataLabel">Add Data</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form method="POST" onSubmit={ev => this.submitData(ev)}>
+                                    <div className="modal-body">
+                                            <div className="mb-3 col-6">
+                                                <label className="form-label">Nama</label>
+                                                <input required type="text" className="form-control" value={this.state.nama} onChange={ev => this.setState({nama: ev.target.value})}/>
+                                            </div>
+                                            <div className="mb-3 col-6">
+                                                <label className="form-label">Alamat</label>
+                                                <input required type="text" className="form-control" value={this.state.alamat} onChange={ev => this.setState({alamat: ev.target.value})}/>
+                                            </div>
+                                            <div className="mb-3 col-6">
+                                                <label className="form-label">Jenis Kelamin</label>
+                                                <input required type="text" className="form-control" value={this.state.jenis_kelamin} onChange={ev => this.setState({jenis_kelamin: ev.target.value})}/>
+                                            </div>
+                                            <div className="mb-3 col-6">
+                                                <label className="form-label">Tlp</label>
+                                                <input required type="text" className="form-control" value={this.state.tlp} onChange={ev => this.setState({tlp: ev.target.value})}/>
+                                            </div>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Submit</button>
+                                    </div>
+                                </form>
                             </div>
-                            <form method="POST" onSubmit={ev => this.submitData(ev)}>
-                                <div className="modal-body">
-                                        <div className="mb-3 col-6">
-                                            <label className="form-label">Nama</label>
-                                            <input required type="text" className="form-control" value={this.state.nama} onChange={ev => this.setState({nama: ev.target.value})}/>
-                                        </div>
-                                        <div className="mb-3 col-6">
-                                            <label className="form-label">Alamat</label>
-                                            <input required type="text" className="form-control" value={this.state.alamat} onChange={ev => this.setState({alamat: ev.target.value})}/>
-                                        </div>
-                                        <div className="mb-3 col-6">
-                                            <label className="form-label">Jenis Kelamin</label>
-                                            <input required type="text" className="form-control" value={this.state.jenis_kelamin} onChange={ev => this.setState({jenis_kelamin: ev.target.value})}/>
-                                        </div>
-                                        <div className="mb-3 col-6">
-                                            <label className="form-label">Tlp</label>
-                                            <input required type="text" className="form-control" value={this.state.tlp} onChange={ev => this.setState({tlp: ev.target.value})}/>
-                                        </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Submit</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
+
+                    <Widget className="p-4">
+                        <div className={s.tableTitle}>
+                            <div className="headline-2">Page Customer</div>
+                            <div className="d-flex">
+                                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.addData()}>Add Data</button>
+                            </div>
+                        </div>
+                        <div className="widget-table-overflow">
+                            <Table className={`table-striped table-borderless table-hover ${s.statesTable}`} responsive>
+                                <thead>
+                                    <tr>
+                                        <th className="w-25">ID</th>
+                                        <th className="w-25">Nama Member</th>
+                                        <th className="w-25">Alamat</th>
+                                        <th className="w-25">Jenis Kelamin</th>
+                                        <th className="w-25">Telp</th>
+                                        <th className="w-25">Option</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    { this.state.data_member.map( item => (
+                                        <tr>
+                                            <td>{item.id_member}</td>
+                                            <td><img className={s.image} src={ellieSmithImg} alt="User"/><span className="ml-3">{item.nama}</span></td> 
+                                            <td>{item.alamat}</td>
+                                            <td>{item.jenis_kelamin}</td>
+                                            <td>{item.tlp}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                        Option
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item text-primary" href="#" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.updateData(item)}>Edit</a>
+                                                        <a class="dropdown-item text-danger" href="#" onClick={() => this.dropData(item)}>Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )) }
+                                </tbody>
+                            </Table>
+                        </div>
+                    </Widget>
                 </div>
-                <table className="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nama Member</th>
-                            <th scope="col">Alamat</th>
-                            <th scope="col">Jenis Kelamin</th>
-                            <th scope="col">Telp</th>
-                            <th scope="col">Option</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { this.state.data_member.map( item => (
-                            <tr>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                        {item.id_member}
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                        {item.nama}
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                        {item.alamat}
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                        {item.jenis_kelamin}
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                        {item.tlp}
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.updateData(item)}>Edit</button>|
-                                        <button type="button" className="btn btn-danger" onClick={() => this.dropData(item)}>Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        )) }
-                    </tbody>
-                </table>
-            </div>
+            </>
         )
     }
 }

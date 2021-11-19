@@ -2,6 +2,14 @@ import React from 'react'
 import axios from 'axios'
 import base_url from '../../config/base_urls'
 import moment from 'moment'
+import Header from "../../components/Header/Header";
+
+import {
+    Table
+} from "reactstrap";
+import Widget from "../../components/Widget/Widget.js";
+import s from "../../assets/css/Tables.module.scss";
+
 
 class Index extends React.Component{
     constructor(){
@@ -198,219 +206,184 @@ class Index extends React.Component{
     }
     render(){
         return(
-            <div>
-                <h1>Page Transaksi</h1>
-                <div className="d-flex justify-content-end">
-                    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.addData()}>Add Data</button>
-                </div>
+            <>
+                <Header/>
+                <div className="container pt-4">
+                    <h3 className="font-weight-bold text-muted text-uppercase mb-3">Crud Transaksi</h3>
 
-                {/* <!-- Modal --> */}
-                <div className="modal fade" id="modalData" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
-                    {/* <!-- Vertically centered modal --> */}
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="modalDataLabel">{this.state.action} Data</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <form method="POST" onSubmit={ev => this.submitData(ev)}>
-                                <div className="modal-body">
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">Kode Invoice</label>
-                                        <input required type="text" className="form-control" value={this.state.kode_invoice} onChange={ev => this.setState({kode_invoice: ev.target.value})}/>
-                                    </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">Outlet</label>
-                                        <select className="form-select" aria-label="Default select example"
-                                            value={this.state.id_outlet} onChange={ev => this.setState({id_outlet: ev.target.value})}>
-                                            <option selected>Open this select menu</option>
-                                            {
-                                                this.state.data_outlet.map(item => (
-                                                    <option value={item.id_outlet}>{item.nama}</option>
-                                                ))
-                                            }
-                                        </select>
-                                    </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">user</label>
-                                        <select className="form-select" aria-label="Default select example"
-                                            value={this.state.id_user} onChange={ev => this.setState({id_user: ev.target.value})}>
-                                            <option selected>Open this select menu</option>
-                                            {
-                                                this.state.data_user.map(item => (
-                                                    <option value={item.id_user}>{item.nama}</option>
-                                                ))
-                                            }
-                                        </select>
-                                    </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">member</label>
-                                        <select className="form-select" aria-label="Default select example"
-                                            value={this.state.id_member} onChange={ev => this.setState({id_member: ev.target.value})}>
-                                            <option selected>Open this select menu</option>
-                                            {
-                                                this.state.data_member.map(item => (
-                                                    <option value={item.id_member}>{item.nama}</option>
-                                                ))
-                                            }
-                                        </select>
-                                    </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">Tanggal Laundry</label>
-                                        <input required type="date" className="form-control" value={moment.utc(this.state.tgl).format("yy-MM-DD")} onChange={ev => this.setState({tgl: ev.target.value})}/>
-                                    </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">Batas Waktu</label>
-                                        <input required type="date" className="form-control" value={moment.utc(this.state.batas_waktu).format("yy-MM-DD")} onChange={ev => this.setState({batas_waktu: ev.target.value})}/>
-                                    </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">Tanggal Bayar</label>
-                                        <input required type="date" className="form-control" value={moment.utc(this.state.tgl_bayar).format("yy-MM-DD")} onChange={ev => this.setState({tgl_bayar: ev.target.value})}/>
-                                    </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">Biaya Tambahan</label>
-                                        <input required type="text" className="form-control" value={this.state.biaya_tambahan} onChange={ev => this.setState({biaya_tambahan: ev.target.value})}/>
-                                    </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">Diskon</label>
-                                        <input required type="text" className="form-control" value={this.state.diskon} onChange={ev => this.setState({diskon: ev.target.value})}/>
-                                    </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">Pajak</label>
-                                        <input required type="text" className="form-control" value={this.state.pajak} onChange={ev => this.setState({pajak: ev.target.value})}/>
-                                    </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">Dibayar</label>
-                                        <input required type="text" className="form-control" value={this.state.dibayar} onChange={ev => this.setState({dibayar: ev.target.value})}/>
-                                    </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">Status</label>
-                                        <input required type="text" className="form-control" value={this.state.status} onChange={ev => this.setState({status: ev.target.value})}/>
-                                    </div>
+                    {/* <!-- Modal --> */}
+                    <div className="modal fade" id="modalData" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
+                        {/* <!-- Vertically centered modal --> */}
+                        <div className="modal-dialog modal-dialog-centered">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="modalDataLabel">{this.state.action} Data</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div className="modal fade" id="modalDetailTransaksi" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
-                    {/* <!-- Vertically centered modal --> */}
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="modalDataLabel">Details Transaksi</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div>
-                                Detail transaksi
+                                <form method="POST" onSubmit={ev => this.submitData(ev)}>
+                                    <div className="modal-body">
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Kode Invoice</label>
+                                            <input required type="text" className="form-control" value={this.state.kode_invoice} onChange={ev => this.setState({kode_invoice: ev.target.value})}/>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Outlet</label>
+                                            <select className="form-select" aria-label="Default select example"
+                                                value={this.state.id_outlet} onChange={ev => this.setState({id_outlet: ev.target.value})}>
+                                                <option selected>Open this select menu</option>
+                                                {
+                                                    this.state.data_outlet.map(item => (
+                                                        <option value={item.id_outlet}>{item.nama}</option>
+                                                    ))
+                                                }
+                                            </select>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">user</label>
+                                            <select className="form-select" aria-label="Default select example"
+                                                value={this.state.id_user} onChange={ev => this.setState({id_user: ev.target.value})}>
+                                                <option selected>Open this select menu</option>
+                                                {
+                                                    this.state.data_user.map(item => (
+                                                        <option value={item.id_user}>{item.nama}</option>
+                                                    ))
+                                                }
+                                            </select>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">member</label>
+                                            <select className="form-select" aria-label="Default select example"
+                                                value={this.state.id_member} onChange={ev => this.setState({id_member: ev.target.value})}>
+                                                <option selected>Open this select menu</option>
+                                                {
+                                                    this.state.data_member.map(item => (
+                                                        <option value={item.id_member}>{item.nama}</option>
+                                                    ))
+                                                }
+                                            </select>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Tanggal Laundry</label>
+                                            <input required type="date" className="form-control" value={moment.utc(this.state.tgl).format("yy-MM-DD")} onChange={ev => this.setState({tgl: ev.target.value})}/>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Batas Waktu</label>
+                                            <input required type="date" className="form-control" value={moment.utc(this.state.batas_waktu).format("yy-MM-DD")} onChange={ev => this.setState({batas_waktu: ev.target.value})}/>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Tanggal Bayar</label>
+                                            <input required type="date" className="form-control" value={moment.utc(this.state.tgl_bayar).format("yy-MM-DD")} onChange={ev => this.setState({tgl_bayar: ev.target.value})}/>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Biaya Tambahan</label>
+                                            <input required type="text" className="form-control" value={this.state.biaya_tambahan} onChange={ev => this.setState({biaya_tambahan: ev.target.value})}/>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Diskon</label>
+                                            <input required type="text" className="form-control" value={this.state.diskon} onChange={ev => this.setState({diskon: ev.target.value})}/>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Pajak</label>
+                                            <input required type="text" className="form-control" value={this.state.pajak} onChange={ev => this.setState({pajak: ev.target.value})}/>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Dibayar</label>
+                                            <input required type="text" className="form-control" value={this.state.dibayar} onChange={ev => this.setState({dibayar: ev.target.value})}/>
+                                        </div>
+                                        <div className="mb-3 col-6">
+                                            <label className="form-label">Status</label>
+                                            <input required type="text" className="form-control" value={this.state.status} onChange={ev => this.setState({status: ev.target.value})}/>
+                                        </div>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Submit</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <table className="table table-striped table-hover">
-                        <thead>
+                    {/* Modal-Details */}
+                    <div className="modal fade" id="modalDetailTransaksi" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
+                        {/* <!-- Vertically centered modal --> */}
+                        <div className="modal-dialog modal-dialog-centered">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="modalDataLabel">Details Transaksi</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div>
+                                    Detail transaksi
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <Widget className="p-4">
+                    <div className={s.tableTitle}>
+                        <div className="headline-2">Page Transaksi</div>
+                        <div className="d-flex">
+                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.addData()}>Add Data</button>
+                        </div>
+                    </div>
+                    <div className="widget-table-overflow">
+                        <Table className={`table-striped table-borderless table-hover ${s.statesTable}`} responsive>
+                            <thead>
                             <tr>
-                                <th scope="col">ID Transaksi</th>
-                                <th scope="col">ID Outlet</th>
-                                <th scope="col">ID User</th>
-                                <th scope="col">ID Member</th>
-                                <th scope="col">Kode Invoice</th>
-                                <th scope="col">Tanggal</th>
-                                <th scope="col">Batas Waktu</th>
-                                <th scope="col">Tanggal Bayar</th>
-                                <th scope="col">Biaya Tambahan</th>
-                                <th scope="col">Diskon</th>
-                                <th scope="col">Pajak</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Dibayar</th>
-                                <th scope="col">Option</th>
+                                <th className="w-25">Invoice</th>
+                                <th className="w-25">Status</th>
+                                <th className="w-25">Tanggal</th>
+                                <th className="w-25">Batas Waktu</th>
+                                <th className="w-25">Tanggal Bayar</th>
+                                <th className="w-25">Biaya Tambahan</th>
+                                <th className="w-25">Diskon</th>
+                                <th className="w-25">Pajak</th>
+                                <th className="w-25">Dibayar</th>
+                                <th className="w-25">Option</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            { this.state.data_transaksi.map( item => (
-                                <tr>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.id_transaksi}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.id_outlet}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.id_user}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.id_member}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.kode_invoice}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {moment.utc(item.tgl).format("MM/DD/YY")}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {moment.utc(item.batas_waktu).format("MM/DD/YY")}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {moment.utc(item.tgl_bayar).format("MM/DD/YY")}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.biaya_tambahan}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.diskon}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.pajak}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.status}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.dibayar}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.updateData(item)}>Edit</button>|
-                                            <button type="button" className="btn btn-danger" onClick={() => this.dropData(item)}>Delete</button>|
-                                            <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalDetailTransaksi">Details</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            )) }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                { this.state.data_transaksi.map( item => (
+                                    <tr>
+                                        <td><a href="#" className="badge badge-dark" data-bs-toggle="modal" data-bs-target="#modalDetailTransaksi">{item.kode_invoice}</a></td>
+                                        <td>
+                                            {item.status === "lunas" ? (
+                                                <span className="badge badge-success">
+                                                    {item.status}
+                                                </span>
+                                            ):(
+                                                <span className="badge badge-danger">
+                                                    {item.status}
+                                                </span>
+                                            )}
+                                        </td>
+                                        <td>{moment.utc(item.tgl).format("MM/DD/YY")}</td>
+                                        <td>{moment.utc(item.batas_waktu).format("MM/DD/YY")}</td>
+                                        <td>{moment.utc(item.tgl_bayar).format("MM/DD/YY")}</td>
+                                        <td>{item.biaya_tambahan}</td>
+                                        <td>{item.diskon}</td>
+                                        <td>{item.pajak}</td>
+                                        <td>{item.dibayar}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                    Option
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item text-primary" href="#" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.updateData(item)}>Edit</a>
+                                                    <a class="dropdown-item text-danger" href="#" onClick={() => this.dropData(item)}>Delete</a>
+                                                    <a class="dropdown-item text-warning" href="#" data-bs-toggle="modal" data-bs-target="#modalDetailTransaksi">Details</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )) }
+                            </tbody>
+                        </Table>
+                    </div>
+                </Widget>
                 </div>
-            </div>
+            </>
         )
     }
 }

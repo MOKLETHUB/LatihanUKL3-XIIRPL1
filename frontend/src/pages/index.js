@@ -1,5 +1,5 @@
 import customer from './main/customer';
-import dashboard from './main/dashboard';
+import dashboard from './main/dashboard/dashboard';
 import laporan from './main/laporan';
 import login from './main/login';
 import outlet from './main/outlet';

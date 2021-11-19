@@ -2,9 +2,11 @@ import React from 'react'
 import { Switch, Route, Link} from "react-router-dom";
 import pages from './pages';
 
+// -- Component Styles
+import "./styles/app.scss";
+
 function App() {
   return (
-    <>
     <Switch>
         <Route exact path='/' component={pages.dashboard}/>
         <Route path='/login' component={pages.login}/>
@@ -15,8 +17,6 @@ function App() {
         <Route path='/transaksi' component={pages.transaksi}/>
         <Route path='/user' component={pages.user}/>
     </Switch>
-    <Link to="/">#Dashboard</Link>
-    </>
   );
 }
 

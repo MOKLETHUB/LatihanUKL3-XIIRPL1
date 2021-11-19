@@ -1,6 +1,15 @@
 import React from 'react'
 import axios from 'axios'
 import base_url from '../../config/base_urls'
+import Header from "../../components/Header/Header";
+
+import {
+    Table
+} from "reactstrap";
+import Widget from "../../components/Widget/Widget.js";
+import s from "../../assets/css/Tables.module.scss";
+
+import ellieSmithImg from "../../assets/tables/ellieSmithImg.png";
 
 class Index extends React.Component{
     constructor(){
@@ -11,6 +20,7 @@ class Index extends React.Component{
             nama: "",
             username: "",
             password: "",
+            fillPassword: false,
             id_outlet: "",
             role: "",
             token: "",
@@ -136,12 +146,10 @@ class Index extends React.Component{
     }
     render(){
         return(
-            <div>
-                <h1>Page User</h1>
-                <div className="d-flex justify-content-end">
-                    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.addData()}>Add Data</button>
-                </div>
-
+            <>
+            <Header/>
+            <div className="container pt-4">
+                <h3 className="font-weight-bold text-muted text-uppercase mb-3">Crud User</h3>
                 {/* <!-- Modal --> */}
                 <div className="modal fade" id="modalData" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
                     {/* <!-- Vertically centered modal --> */}
@@ -161,9 +169,43 @@ class Index extends React.Component{
                                             <label className="form-label">Username</label>
                                             <input required type="text" className="form-control" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})}/>
                                         </div>
-                                        <div className="mb-3 col-6">
-                                            <label className="form-label">Password</label>
-                                            <input required type="text" className="form-control" value={this.state.password} onChange={ev => this.setState({password: ev.target.value})}/>
+                                        <div className="mb-3">
+
+                                            { this.state.action === "update" && this.state.fillPassword === false ? (
+                                                <div class="mb-3 col-6">
+                                                    <label className="form-label">Password</label>
+                                                    <button className="btn btn-primary"
+                                                        type="button"
+                                                        onClick={() => this.setState({fillPassword: true})}>
+                                                        Change Password
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <>
+                                                <div class=" col-6">
+                                                    <label className="form-label">Password</label>
+                                                </div>
+                                                <div>
+                                                    <div class="form-inline">
+                                                        <div class="form-group mx-sm-3">
+                                                            <input required type="password" className="form-control" 
+                                                            placeholder="**********" value={this.state.password} 
+                                                            onChange={ev => this.setState({password: ev.target.value})}/>
+                                                        </div>
+                                                            {this.state.action == "add" ? (
+                                                               null 
+                                                            ):(
+                                                                <button className="btn btn-danger"
+                                                                    type="button"
+                                                                    onClick={() => this.setState({fillPassword: false})}>
+                                                                    Close
+                                                                </button>
+                                                            )}
+                                                    </div>
+                                                </div>
+                                                </>
+                                            )}
+
                                         </div>
                                         <div className="mb-3 col-6">
                                             <label className="form-label">Outlet</label>
@@ -195,64 +237,55 @@ class Index extends React.Component{
                         </div>
                     </div>
                 </div>
-                <div>
-                    <table className="table table-striped table-hover">
-                        <thead>
+
+                <Widget className="p-4">
+                    <div className={s.tableTitle}>
+                        <div className="headline-2">Page User</div>
+                        <div className="d-flex">
+                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.addData()}>Add Data</button>
+                        </div>
+                    </div>
+                    <div className="widget-table-overflow">
+                        <Table className={`table-striped table-borderless table-hover ${s.statesTable}`} responsive>
+                            <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nama User</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Outlet</th>
-                                <th scope="col">Role</th>
-                                <th scope="col">Option</th>
+                                <th className="w-25">ID</th>
+                                <th className="w-25">Nama User</th>
+                                <th className="w-25">Username</th>
+                                {/* <th className="w-25">Password</th> */}
+                                <th className="w-25">Outlet</th>
+                                <th className="w-25">Role</th>
+                                <th className="w-25">Option</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            { this.state.data_user.map( item => (
-                                <tr>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.id_user}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.nama}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.username}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.password}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.tb_outlet.nama}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.role}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.updateData(item)}>Edit</button>|
-                                            <button type="button" className="btn btn-danger" onClick={() => this.dropData(item)}>Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            )) }
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                { this.state.data_user.map( item => (
+                                    <tr>
+                                        <td>{item.id_user}</td>
+                                        <td><img className={s.image} src={ellieSmithImg} alt="User"/><span className="ml-3">{item.nama}</span></td>
+                                        <td>{item.username}</td>
+                                        {/* <td>{item.password}</td> */}
+                                        <td>{item.tb_outlet.nama}</td>
+                                        <td>{item.role}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                    Option
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item text-primary" href="#" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.updateData(item)}>Edit</a>
+                                                    <a class="dropdown-item text-danger" href="#" onClick={() => this.dropData(item)}>Delete</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )) }
+                            </tbody>
+                        </Table>
+                    </div>
+                </Widget>
             </div>
+            </>
         )
     }
 }

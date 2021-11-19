@@ -1,6 +1,13 @@
 import React from 'react'
 import axios from 'axios'
 import base_url from '../../config/base_urls'
+import Header from "../../components/Header/Header";
+
+import {
+    Table
+  } from "reactstrap";
+  import Widget from "../../components/Widget/Widget.js";
+  import s from "../../assets/css/Tables.module.scss";
 
 class Index extends React.Component{
     constructor(){
@@ -132,110 +139,103 @@ class Index extends React.Component{
     }
     render(){
         return(
-            <div>
-                <div>
-                    <h1>Page Paket</h1>
-                    <div className="d-flex justify-content-end">
-                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.addData()}>Add Data</button>
-                    </div>
-
-                    {/* <!-- Modal --> */}
-                    <div className="modal fade" id="modalData" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
-                        {/* <!-- Vertically centered modal --> */}
-                        <div className="modal-dialog modal-dialog-centered">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="modalDataLabel">Add Data</h5>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form method="POST" onSubmit={ev => this.submitData(ev)}>
-                                    <div className="modal-body">
-                                            <div className="mb-3 col-6">
-                                                <label className="form-label">Nama Paket</label>
-                                                <input required type="text" className="form-control" value={this.state.nama_paket} onChange={ev => this.setState({nama_paket: ev.target.value})}/>
+            <>
+                <Header/>
+                <div className="container pt-4">
+                    <h3 className="font-weight-bold text-muted text-uppercase mb-3">Crud Paket</h3>
+                    <div>
+                        {/* <!-- Modal --> */}
+                        <div className="modal fade" id="modalData" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
+                            {/* <!-- Vertically centered modal --> */}
+                            <div className="modal-dialog modal-dialog-centered">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="modalDataLabel">Add Data</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form method="POST" onSubmit={ev => this.submitData(ev)}>
+                                        <div className="modal-body">
+                                                <div className="mb-3 col-6">
+                                                    <label className="form-label">Nama Paket</label>
+                                                    <input required type="text" className="form-control" value={this.state.nama_paket} onChange={ev => this.setState({nama_paket: ev.target.value})}/>
+                                                </div>
+                                                <div className="mb-3 col-6">
+                                                    <label className="form-label">Jenis Paket</label>
+                                                    <input required type="text" className="form-control" value={this.state.jenis} onChange={ev => this.setState({jenis: ev.target.value})}/>
+                                                </div>
+                                                <div className="mb-3 col-6">
+                                                    <label className="form-label">Harga</label>
+                                                    <input required type="text" className="form-control" value={this.state.harga} onChange={ev => this.setState({harga: ev.target.value})}/>
+                                                </div>
+                                                <div className="mb-3 col-6">
+                                                <label className="form-label">Outlet</label>
+                                                <select className="form-select" aria-label="Default select example"
+                                                    value={this.state.id_outlet} onChange={ev => this.setState({id_outlet: ev.target.value})}>
+                                                    <option selected>Open this select menu</option>
+                                                    {
+                                                        this.state.data_outlet.map(item => (
+                                                            <option value={item.id_outlet}>{item.nama}</option>
+                                                        ))
+                                                    }
+                                                </select>
                                             </div>
-                                            <div className="mb-3 col-6">
-                                                <label className="form-label">Jenis Paket</label>
-                                                <input required type="text" className="form-control" value={this.state.jenis} onChange={ev => this.setState({jenis: ev.target.value})}/>
-                                            </div>
-                                            <div className="mb-3 col-6">
-                                                <label className="form-label">Harga</label>
-                                                <input required type="text" className="form-control" value={this.state.harga} onChange={ev => this.setState({harga: ev.target.value})}/>
-                                            </div>
-                                            <div className="mb-3 col-6">
-                                            <label className="form-label">Outlet</label>
-                                            <select className="form-select" aria-label="Default select example"
-                                                value={this.state.id_outlet} onChange={ev => this.setState({id_outlet: ev.target.value})}>
-                                                <option selected>Open this select menu</option>
-                                                {
-                                                    this.state.data_outlet.map(item => (
-                                                        <option value={item.id_outlet}>{item.nama}</option>
-                                                    ))
-                                                }
-                                            </select>
                                         </div>
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Submit</button>
-                                    </div>
-                                </form>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <table className="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nama paket</th>
-                                <th scope="col">Jenis</th>
-                                <th scope="col">Harga</th>
-                                <th scope="col">Outlet</th>
-                                <th scope="col">Option</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            { this.state.data_paket.map( item => (
+
+                    <Widget className="p-4">
+                        <div className={s.tableTitle}>
+                            <div className="headline-2">Page Paket</div>
+                            <div className="d-flex">
+                                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.addData()}>Add Data</button>
+                            </div>
+                        </div>
+                        <div className="widget-table-overflow">
+                            <Table className={`table-striped table-borderless table-hover ${s.statesTable}`} responsive>
+                                <thead>
                                 <tr>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.id_paket}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.nama_paket}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.jenis}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.harga}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            {item.tb_outlet.nama}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">
-                                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.updateData(item)}>Edit</button>|
-                                            <button type="button" className="btn btn-danger" onClick={() => this.dropData(item)}>Delete</button>
+                                    <th>ID</th>
+                                    <th className="w-25">Nama paket</th>
+                                    <th className="w-25">Jenis</th>
+                                    <th className="w-25">Harga</th>
+                                    <th className="w-25">Outlet</th>
+                                    <th className="w-25">Option</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                { this.state.data_paket.map( item => (
+                                <tr>
+                                    <td>{item.id_paket}</td>
+                                    <td>{item.nama_paket}</td>
+                                    <td>{item.jenis}</td>
+                                    <td>Rp{item.harga},00</td>
+                                    <td>{item.tb_outlet.nama}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                Option
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item text-primary" href="#" data-bs-toggle="modal" data-bs-target="#modalData" onClick={() => this.updateData(item)}>Edit</a>
+                                                <a class="dropdown-item text-danger" href="#" onClick={() => this.dropData(item)}>Delete</a>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
                             )) }
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </Table>
+                        </div>
+                    </Widget>
                 </div>
-            </div>
+            </>
         )
     }
 }
