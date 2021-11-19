@@ -31,7 +31,6 @@ import s from "./Dashboard.module.scss";
 
 // -- Custom Components
 import Header from "../../../components/Header/Header";
-// import Tables from "../tables/Tables";
 
 class Index extends React.Component{
     constructor(){

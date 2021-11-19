@@ -160,7 +160,6 @@ class Index extends React.Component{
                                             </div>
                                     </div>
                                     <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                         <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Submit</button>
                                     </div>
                                 </form>

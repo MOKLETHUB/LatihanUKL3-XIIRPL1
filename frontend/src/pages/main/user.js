@@ -230,7 +230,6 @@ class Index extends React.Component{
                                         </div>
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Submit</button>
                                 </div>
                             </form>
@@ -249,10 +248,9 @@ class Index extends React.Component{
                         <Table className={`table-striped table-borderless table-hover ${s.statesTable}`} responsive>
                             <thead>
                             <tr>
-                                <th className="w-25">ID</th>
+                                <th>ID</th>
                                 <th className="w-25">Nama User</th>
                                 <th className="w-25">Username</th>
-                                {/* <th className="w-25">Password</th> */}
                                 <th className="w-25">Outlet</th>
                                 <th className="w-25">Role</th>
                                 <th className="w-25">Option</th>
@@ -263,8 +261,7 @@ class Index extends React.Component{
                                     <tr>
                                         <td>{item.id_user}</td>
                                         <td><img className={s.image} src={ellieSmithImg} alt="User"/><span className="ml-3">{item.nama}</span></td>
-                                        <td>{item.username}</td>
-                                        {/* <td>{item.password}</td> */}
+                                        <td>{item.username}</td>    
                                         <td>{item.tb_outlet.nama}</td>
                                         <td>{item.role}</td>
                                         <td>
