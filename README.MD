@@ -7,7 +7,7 @@
 
 [Dokumentasi-frontend](https://docs.google.com/document/d/1QgP_WJfA9h_Ur1lxp8tOm7yiJ3jIv434o3eQ1Ay82wE/edit?usp=sharing)
 
-[Dokumentasi-backend](https://docs.google.com/document/d/1Javx_tXSW2PqLoPLWcu4J1vE_nHnkpNDpiraJWlss6s/edit?usp=sharing)
+[Dokumentasi-backend](https://docs.google.com/document/d/18O5dPwugcFHJ0M1UT7G-YerUKyJWdEFH054WTFAEWn8/edit?usp=sharing)
 
 > Dokumentasi project sebelumnya (referensi)
 
